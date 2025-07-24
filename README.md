@@ -1,4 +1,11 @@
 # poc-php-bigquery
+
+## 実行環境
+PHP 8.4.8
+Composer 2.8.10
+Google Cloud SDK 530.0.0
+bq 2.1.19
+
 ## 事前準備
 
 ### .env に Google Cloud のプロジェクトIDを設定
