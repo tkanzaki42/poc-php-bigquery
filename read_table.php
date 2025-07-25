@@ -16,9 +16,19 @@ $bigQuery = new BigQueryClient([
     'projectId' => $projectId,
 ]);
 
-$safeName = "Bob"; // 任意の検索文字列
+$safeName = "Bob";
 
-$query = "SELECT * FROM `$projectId.$datasetId.$tableId` WHERE name = @name";
+$query = <<<SQL
+SELECT id, name, score
+FROM (
+    SELECT id, name, score
+    FROM `$projectId.$datasetId.$tableId`
+    WHERE name = @name
+    ORDER BY score DESC
+    LIMIT 10
+)
+WHERE score > 50
+SQL;
 
 $queryJobConfig = $bigQuery->query($query)
     ->parameters([
